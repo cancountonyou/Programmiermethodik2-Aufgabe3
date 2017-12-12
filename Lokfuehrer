@@ -1,0 +1,33 @@
+package Aufgabenblatt3;
+
+public class Lokfuehrer extends Thread {
+  
+  private Rangierbahnhof bahnhof;
+  private String aufgabe;
+  private Zug zug;
+  
+  
+  public Lokfuehrer(Rangierbahnhof bahnhof){
+    this.bahnhof = bahnhof;
+    if ((Math.random()*10)>= 5){
+      aufgabe = "Reinfahren";
+    }else{
+      aufgabe = "Rausfahren";
+    }
+  }
+  
+  public void run(){
+    int gleisNummer = (int)(bahnhof.getGleisanzahl()*Math.random()); 
+    if (aufgabe.equals("Reinfahren")){
+      this.zug = new Zug();
+      bahnhof.zugEinfahren(zug, gleisNummer);
+      System.out.println("Zug"+ zug.getNummer() + ", ist auf dem Gleis" + gleisNummer +" eingefahren" );
+      }else{
+       bahnhof.zugAusfahren(gleisNummer);
+       System.out.println("Zug"+ bahnhof.getZug(gleisNummer) + ", ist von dem Gleis" + gleisNummer +"ausgefahren" );
+      }
+    }
+  
+  
+
+}
