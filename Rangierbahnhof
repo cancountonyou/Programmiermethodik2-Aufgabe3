@@ -1,0 +1,55 @@
+package Aufgabenblatt3;
+
+public class Rangierbahnhof {
+
+  final int gleisanzahl = 100;
+  private Zug[] zuege;
+
+  public Rangierbahnhof() {
+    this.zuege = new Zug[this.gleisanzahl];
+  }
+
+  /*
+   * public Rangierbahnhof(int gleisanzahl){ this.gleisanzahl = gleisanzahl;
+   * this.gleise = new Zug[this.gleisanzahl]; }
+   */
+
+  public synchronized void zugEinfahren(Zug zug, int gleisNummer)
+      throws InterruptedException {
+    if (zuege[gleisNummer] != null) {
+      try {
+        this.wait();
+      } catch (InterruptedException e) {
+        Thread.currentThread().interrupt();
+        System.out.println("Gleis bereits besetzt");
+      }
+    } else {
+      zuege[gleisNummer] = zug;
+      this.notifyAll();
+    }
+  }
+
+  public synchronized void zugAusfahren(int gleisNummer)
+      throws InterruptedException {
+    if (zuege[gleisNummer] == null) {
+      try {
+        this.wait();
+      } catch (InterruptedException e) {
+        Thread.currentThread().interrupt();
+        System.out.println("Zug bereits ausgefahren");
+      }
+    } else {
+      zuege[gleisNummer] = null;
+      this.notifyAll();
+    }
+  }
+
+  public int getGleisanzahl() {
+    return gleisanzahl;
+  }
+
+  public Zug getZug(int index) {
+    return zuege[index];
+  }
+
+}
