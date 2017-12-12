@@ -1,0 +1,18 @@
+package Aufgabenblatt3;
+
+public class Zug {
+  
+  private int nummer = 1;
+  
+  
+  public Zug(){
+    this.nummer = nummer ++;
+  }
+
+
+  public int getNummer() {
+    return nummer;
+  }
+  
+
+}
