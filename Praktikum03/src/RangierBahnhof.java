@@ -10,6 +10,13 @@ public class RangierBahnhof extends Observable {
 			this.zuege = new Zug[gleisAnzahl];
 		}
 
+		public int getGleisAnzahl() {
+			return gleisAnzahl;
+		}
+
+
+
+
 		public synchronized void einfahren(Zug zug, int gleisNummer) {
 			// solange Bahnhof voll ist, warten
 			while (zuege[gleisNummer] != null) {
@@ -54,6 +61,12 @@ public class RangierBahnhof extends Observable {
 			int gleisNummer = (int) (Math.random() * gleisAnzahl);
 			return gleisNummer;
 		}
+
+		public Zug[] getZuege() {
+			return zuege;
+		}
+		
+		
 	}
 
 
